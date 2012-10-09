@@ -1,0 +1,67 @@
+Universal Symbol Sketchbook
+(for Iconathon & Icon Camps & Icon Salons)
+
+
+We would like to make it easier to share collaboratively created symbol sketches that are produced as part of the Iconathon. This is important for ensuring transparency in the process of international collaboration as well as to support reuse and resource sharing in this emerging design movement.
+
+We propose to create a new Universal Symbol Sketchbook, which could live at
+http://sketches.iconathon.org. 
+
+Timeline
+This project will start in May 2012, and develop in tandem with the Code for America & Noun Project Iconathon 2012 Series from May to November 2012. 
+
+We will develop the open source technology so that is can support future Iconathons by making it very easy to share sketches in a way that will allow the information to be useful to future Iconathon planners and other people who would like to volunteer to help out. We would like this effort to serve active Iconathon activity for at least 2 years, and sustain the information for 5 years, eventually moving into a libarary system for long term preservation. We expect that after two years we will be able to make another effort to fix the system to make additional improvements as necessary.
+
+
+
+The Challenge
+In Iconathons, participants create hundreds of sketches, for dozens of concepts, and then volunteers work on some of these symbols. Some of these symbols become part of the Civic Symbol Suite, which are free, public domain, SVG standardized symbols for reuse, which are hosted on The Noun Project under the tag Iconathon.
+
+A number of sketches get lost along the way. As we have more and more events as Iconathons become more popular, it is helpful to make it easier to use our library of sketches and symbol concepts which reference as we plan events. We also use this database to share information about who is working on what, and which symbols get abandoned. List of Unclaimed & Abandoned Symbols.
+
+To give you an idea of how much information was produced last year with 6 events
+40 Symbols Released
+150 Symbol Sketches "Finished"
+1500+ Sketch Ideas
+200+ Concept Ideas
+1000+ Brainstormed Concept Ideas
+400+ Symbols Documented
+900+ Photos in Flickr Pool
+15+ Educational Presentations about Design & Themes
+
+
+Currently this system is functional, and takes about 15 hours per event to document and distribute the community work. By the nature of this event being largely a post-it note drawing event, we have a some ideas on how to use available technology tools to document the work. As the event grows, we need to improve this system so that it is not super painful, and will preserve information for the future.
+
+We have used this tool with some Icon Camps for OccupyDesign, in addition to Iconathon 2011. Because we have already been using this system, we now have a better idea of all of the challenges.
+in the process of documentation a lot of photography and digital information management train more people in the process. There are key moments in the process which are easier to document the work, otherwise it gets lots the sketchbook should highlight our primary goals (right now it is just a list and designers can’t really use it because it is too confusing and is not designed with any user experience in mind (we whipped it together very quickly!
+
+* making the Iconathon process more transparent
+* helping people know what is going on
+* make a painless and inspiring visualization of the sketches so that everyone can see what is being worked on, which reinforces that
+* this is an active movement with a lot of energy
+* find existing symbol concepts
+* encourage people to improve and comment on designs
+* make the information use good digital preservation practice
+* help volunteer designers to publish sketches in production for public feedback
+* socialize concept lists in planning Iconathon events
+* document concepts worked on at Iconathon events
+
+Every step in our process requires us to get community opinions and information from subject matter experts, government officials, designers and citizens. A lot of people have a vested interest in this information, so we feel it is our responsibility to invest time and energy in making our collaborative energy digital so that all of the Iconathon events are documented, and more people who are interested in helping out can take existing sketches and work on them as design projects, for example as part of a university or open education design curriculum. 
+
+As these symbols become more universal, we would also like to show the record of where and how a symbol came to be. We would also like to make sure that the information has good digital preservation, so that people can reference symbols that become universal in 10 or 100 years from now, as we feel that some of what we create has the potential to be of historic value.
+
+This form of transparency makes the design process and challenges easier to understand, as symbols are deceptively simple but require extreme talent to make them more finished. We believe this transparency in process will help to make designers and aspiring designers better by allowing people to see into the process, as well as to show exactly how our talented designers are essential for making our civic space more intelligible.
+
+
+What is Iconathon?
+
+In the Iconathon, designers, citizens and subject matter experts collaborate to sketch new civic symbols for the public domain. This happens primarily at events, including another round of Code for America & Noun Project co-branded Civic Iconathone events in 2012. There also are independent and more informal events called Icon Camps and Icon Salons. 
+
+The symbols which will have positive social impact for different topics are worked on. Symbols help communicate more efficiently and effectively, and across language barriers.
+
+Finished symbols are polished to a high level of design standard through a combination of volunteer and professional design work by talented illustrators, and then released as part of the Iconathon symbol suite and promoted for reuse to city officials and many others as part of a NounProject / Code for America yearly initiative. 
+
+A culture of transparency and sharing
+One key important component of this process is transparency, reuse and communication about the symbols. Designers sketch many symbols, and though we hope to be able to increate capacity to finish symbols, there are raw idea of new symbols that we would like to make public (as well as to show and trace the history of the universal symbol design.) We would also like to be able to coordinate more design events.
+
+http://iconathon.org @iconathon
