@@ -6,18 +6,8 @@ function enginecallback() {
 }
 
 EngineProvider = function() {
-//   this.db = new MongoDB('127.0.0.1',27017); //localhost
-   this.db = new MongoDB('127.2.150.1:27017',27017); //production
-
-
-//   this.db.db.auth("admin","MhIEgb4WHvVc",enginecallback );
-
-//   alternate database on mongolab
-//   this.db = new MongoDB('ds037047.mongolab.com',37047);
-//   this.db.auth("admin","l3m0n1z3",function() { console.log("engine:: authenticated"); } );
-
-   // mongo ds037047.mongolab.com:37047/lemons -u admin -p l3m0n1z3
-//  this.db = new MongoDB('127.0.0.1',27017);
+  //this.db = new MongoDB('127.0.0.1',27017); //localhost
+  this.db = new MongoDB('127.2.150.1:27017',27017); //production
   console.log("server::engine database is " + this.db );
 
 };

@@ -93,13 +93,16 @@ app.filterTwitter = function () {
     localData.detail.tweets = [];
     // twitter feed ajax + twitter API for fruit fence
     var search = localData.detail.shortname;
+    console.log(search);
 
     for(var i = 0; i < localData.tweets.length; i++) {
       var tweet = localData.tweets[i];
-      for(var j = 0; j < tweet.entities.hashtags.length; j++) {      
+      console.log(tweet);
+      if(tweet.entities !== undefined){
+        for(var j = 0; j < tweet.entities.hashtags.length; j++) {      
         var hashtag = tweet.entities.hashtags[j]["text"];
         console.log(hashtag);
-        if(hashtag == search) {
+        if(hashtag === search) {
           var date = new Date(tweet.updated_at);
           tweet.date = date.format("m/dd/yy hh:ss");
         
@@ -107,7 +110,8 @@ app.filterTwitter = function () {
         
         
         
-        }   
+          }   
+        }
       }
     }
     localData.detail.tweets.reverse();
