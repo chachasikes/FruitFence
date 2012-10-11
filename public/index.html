@@ -58,7 +58,7 @@
     <div id="menu" class="tab-pane">
       <ul class="nav nav-tabs nav-stacked">
           <li><a href="#make" data-toggle="tab">Make a Planter</a></li>
-          <li><a href="#fences" data-toggle="tab">See Fruit Fences</a></li>
+          <li><a href="#fences" data-toggle="tab">Fruit Fences</a></li>
           <li><a href="#register" data-toggle="tab">Register your Planter</a></li>
       </ul>
     </div>
@@ -70,23 +70,29 @@
 
 
 <div class="hero-unit">
+      images
       <h1>Fruit Fence</h1>
       <p>Fruit fences are clip on planters for city fences.</p>
 </div>
+      <h3>Build your own from open source plans</h3>
+      <p>Create Fruit Fence planters for your neighborhood. These easy and low-cost plans will help you get up and running.</p>
 
 
       <h3>Features</h3>
       <ul class="list span6">
         <li><strong>Use existing city infrastructure</strong> Clipping a planter to a fence allows us to start growing fruits vertically, in spaces that would normally be inactive, or even ugly.</li>
-        <li><strong>City Fruits for City Microclimates</strong> Our first plantings for the Bay Area are of blueberries, strawberries and lemon trees.</li>
+        <li><strong>City Fruits for City Microclimates</strong> Our first plantings for the Bay Area are of blueberries, strawberries and lemon trees. We are choosing easy-to-grow fruits that do well in containers and do not make a big mess.</li>
         <li><strong>Easy Pattern</strong> The Fruit Fence Bags can be easily sewn with a normal sewing machine. A good project for beginning stitchers.</li>
-        <li><strong>Low-cost Materials</strong> Order or Upcycle Tyvek (or similar material), and plants are the main cost. Add some fun digital accessories to your project for added fun.</li>
+        <li><strong>See planters in other neighborhoods</strong> Check out our project page on Neighborland.</li>
+        <li><strong>Community Care via Social Media</strong> We offer a Twitter-based system for community caring for shared fruit planters. Text-based services also possible.</li>
+        <li><strong>Low-cost Materials</strong>Tyvek and plants are the main cost. Add some digital accessories to your project for added fun.</li>
         <li><strong>Transparent Food Production</strong> A printable surface allows the community effort of fruit care to be more educational. The more we understand about fruiting plants, the better we can advocate for stronger regional fruit production</li>
         <li><strong>Lights up at night</strong> LED lights in the water reservoir become extra lighting for darker urban spaces. </li>
-        <li><strong>Fun to water</strong> A self-watering system can be watered from the outside, and movement in the water will animate fruit scenes, making it fun to add water to the reservoir at night. Not watering the plant directly helps to protect the health of the plant, which can be maintained by a community of volunteers.</li>
-        <li><strong>Community Art Projects</strong> A Fruit Fence is a perfect community art project. Creative activities can be done in a workshop, and can easily integrate with lessons about electronics, plant biology, graphic design, and the physics of water.</li>
-        <li><strong>Community Care via Social Media</strong> We have a system for community caring for shared fruit planters that uses Twitter.</li>
+        <li><strong>Self-watering system</strong> A self-watering system can be watered from the outside. Watering the plant indirectly helps to protect the health of the plant, which can be maintained by a community of volunteers.</li>
+        <li><strong>Fun to water</strong> The movement in the water will move the lights and some shadow elements, making it fun and beautiful to add water to the reservoir at night.</li>
+        <li><strong>Community Art Projects</strong> Constructing a Fruit Fence is a perfect community art project. Creative activities can be done in a workshop, and can easily integrate with lessons about electronics, plant biology, graphic design, and the physics of water.</li>
 
+        <li><strong>Tidy design</strong> The structures can be given professional details, which can make the planters look more intentional.</li>
       </ul>
 
       </div>
@@ -141,27 +147,50 @@
     <div class="tab-pane fade in row" id="fences">
       <div class="span12">
       <h2>Fruit Fences</h2>
-      <ul>
-        <li><a href="?id=abc#detail" data-toggle="tab"><img /> Name</a></li>
-      </ul>
-
+          <div id="plants-list" class="span12">
+          <script type="text/template" id="plantsTemplate">
+            <ul class="list span12">
+              <% _.each(items, function (item) { %> 
+                <li class="span3"><a href="?id=<%= item.shortname %>#detail" data-toggle="tab">
+                  <% if (item.photo !== null) { %>
+                    <div class="media span4">
+                      <div class="embed image link" href="<%= item.photo %>"></div>                    
+                    </div>
+                  <% } %>
+                  Planter #<%= item.shortname %></a></li>
+              <% }); %>
+            </ul>
+          </script>
+          </div>
       </div>
     </div>
 
 
     <div class="tab-pane fade in row" id="detail">
-      <div class="span12">
-        <div class="detail">
-          <h2>Planter Detail</h2>
-          <h3>Name</h3>
-          <p>Description</p>
-        </div>
-      
-      <h3>Log</h3>
-      <ul class="list">
-        <li><img /> Tweet</li>
-        <li><img /> Tweet</li>
-      </ul>
+      <div id="detail-page" class="span12"> 
+        
+          <script type="text/template" id="detailTemplate">
+          <h3>Planter #<%= detail.shortname %></h3>
+          <p><span class="label">What's Planted</span><%= detail.plants %></p>
+          <p><span class="label">Story</span><%= detail.story %></p>
+            <% if (detail.photo !== null) { %>
+                    <div class="media">
+                      <a class="embed image link" href="<%= detail.photo %>">Check it out</a>                    
+                    </div>
+                  <% } %>
+          <p><span class="label">Contact</span><%= detail.contact %></p>
+          <p><span class="label">Address</span><%= detail.address %></p>
+          </script>          
+      </div>
+      <div id="detail-tweets">     
+        <h2>Log</h2>
+        <script type="text/template" id="detailTweetsTemplate">
+          <ul class="list span9">
+            <% _.each(tweets, function (tweet) { %> 
+              <li><span class="tweet"><%= tweet.text %></span><br /><span class="user">@<%= tweet.in_reply_to_screen_name %> <%= tweet.date %></span></li>
+            <% }); %>
+          </ul>
+      </script>
       </div>
     </div>
 
@@ -177,21 +206,52 @@
     <div class="tab-pane fade in" id="contact">
       <h1>Contact</h1>
       <div class="span6">
-      <p>
+      <p>@FruitFence on Twitter.
+      For direct questions, contact @chachasikes.
       </p>
       </div>
     </div>
 
+    <div class="tab-pane fade in" id="team">
+      <h1>Team</h1>
+      <div class="span6">
+            <ul>
+              <li><a href="http://chachaville.com">Chacha Sikes</a> An experience designer interested in cities and hybrid digital/physical city structures. <a href="http://twitter.com/chachasikes">@chachasikes</a></li>
+              <li><a href="">Booka Alon</a> An urban agriculture educator and community organizer</li>
+              <li><a href="">Dan Parham</a> </li>
+            </ul>
+      </div>
+    </div>
+
+
+    <div class="tab-pane fade in" id="about">
+      <h1>About</h1>
+      <div class="span6">
+
+      </div>
+    </div>
+
     </div><!--/end tab content-->
+
   </div><!--/end container-fluid-->
+  
   
   <hr>
       <footer>
           <div class="container-fluid">  
-          <div class="row-fluid">           
-            <ul class="nav nav-pills">
+          <div class="row-fluid">  
 
+            <ul class="nav nav-pills">
+              <li><a href="#team" data-toggle="tab">Team</a></li>
+              <li><a href="#about" data-toggle="tab">About</a></li>
+              <li><a href="#contact" data-toggle="tab">Contact</a></li>
             </ul>       
+
+          
+            <div class="span6">Fruit Fence was developed with the support of the UP (Urban Prototyping) festival. Sponsored also in part by <a href="http://neighborland.com">Neighborland.</a></div>
+            
+
+
             <div class="contact">
                 <p>&copy; Fruit Fence 2012</p>
             </div>
@@ -205,8 +265,10 @@
     <script type="text/javascript" src="/libraries/bootstrap/js/bootstrap.js"></script>    
     <script type="text/javascript" src="/javascripts/libraries/tabletop.js"></script>
     <script type="text/javascript" src="/javascripts/libraries/json2.js"></script>
+    <script type="text/javascript" src="/javascripts/libraries/date.format.js"></script>
     <script type="text/javascript" src="/javascripts/libraries/underscore-min.js"></script>
     <script type="text/javascript" src="/javascripts/libraries/jquery.oembed.js"></script>
+    <script type="text/javascript" src="/javascripts/custom/core.js"></script>
     <script type="text/javascript" src="/javascripts/custom/fruitfence.js"></script>
 
   </body>

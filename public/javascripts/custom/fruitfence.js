@@ -1,53 +1,147 @@
-window.onload = function() { init() };
+var app = {};
+var localData = {};
+window.onload = function() { app.init() };
 
-function init() {
-/*
+
+var ua = navigator.userAgent,
+    clickEvent = (ua.match(/iPad/i)) ? "touchstart" : "click";
+
+
+app.init = function() {
   Tabletop.init( { 
-    url: "https://docs.google.com/spreadsheet/pub?key=0AnUUGMHge9o_dFVnMXJyZlY3Z2RBMGdId3d1dGZ2dVE&single=true&gid=1&output=html",
-    key: "0AnUUGMHge9o_dFVnMXJyZlY3Z2RBMGdId3d1dGZ2dVE",
-    callback: showInfo,
+    url: "https://docs.google.com/spreadsheet/pub?key=0AnUUGMHge9o_dGVweUY2TzRyd2N0Zl9CNE1kNGJhMGc&single=true&gid=0&output=html",
+    key: "0AnUUGMHge9o_dGVweUY2TzRyd2N0Zl9CNE1kNGJhMGc",
+    callback: app.showInfo,
     simpleSheet: true
   });
-*/
+};
+
+
+app.showInfo = function(data) {
+  var data = data;
+  localData.data = data;
+
+  var template = $("#plantsTemplate").html();  
+  $("#plants-list").html(_.template(template,{items: data}));
+  app.loadOembed('#plants-list .media');
+
+/*   app.loadAutocomplete(data); */
+/*   app.setupFilter();  */
   
   
-/*
-    $.ajax({
-    url: "/symbols",
-    dataType: 'json',
-    success: showInfo,
-    error: function(error) { console.log("query error! " + error); console.log(error); return false; }
+  app.bindTabs(); 
+  app.tabInteractionsURL();
+      
+  app.loadTwitter();
+};
+
+app.loadPlanter = function() {
+  var filtered = app.filterTwitter();
+
+  if(localData.detail !== null) {
+    if(localData.template === undefined) {
+      localData.template = $("#detailTemplate").html();  
+    }
+    var detail = localData.detail;
+    $("#detail-page").html(_.template(localData.template,{detail: detail}));
+    app.loadOembed('#detail-page .media');
+
+
+    if(localData.detail.tweets !== null) {
+      if(localData.tweetTemplate === undefined) {
+        localData.tweetTemplate = $("#detailTweetsTemplate").html();  
+      }
+  
+
+      if(detail.tweets !== undefined) {
+
+        $("#detail-tweets").html(_.template(localData.tweetTemplate,{tweets: detail.tweets}));
+      }
+    }
+  }
+};
+
+
+// Add a hash to the URL when the user clicks on a tab.
+app.bindTabs = function() {
+  // Prevent multiple click event bindings, while still keeping the event listener for tab 'shown'
+  $('a[data-toggle="tab"]').unbind(clickEvent);
+  // Not IE7 compatible but oh well. If we need that we can switch to jquery address.
+  $('a[data-toggle="tab"]').bind(clickEvent, function(e) {
+    //console.log("-----BINDING TABS-----" + $(this).attr('href'));
+    history.pushState(null, null, $(this).attr('href'));
+    e.preventDefault();
+    $(this).tab('show');
+
+    if(location.search !== null){
+      var search = location.search;
+      search = search.split('=');
+      if (search[0] === '?id') {
+        localData.detail = _.find(localData.data, function(item){ return item.shortname == search[1]; });
+        app.loadPlanter();
+      }
+    }   
   });
-*/
+};
+
+app.loadTwitter = function() {
+  Core.query({}, app.storeTwitter);
+};
+
+app.filterTwitter = function () {
+  if(localData.tweets !== undefined && localData.detail.shortname !== undefined) {
+    localData.detail.tweets = [];
+    // twitter feed ajax + twitter API for fruit fence
+    var search = localData.detail.shortname;
+    
+    search = "lemon1";
+    for(var i = 0; i < localData.tweets.length; i++) {
+      var tweet = localData.tweets[i];
+      for(var j = 0; j < tweet.entities.hashtags.length; j++) {      
+        var hashtag = tweet.entities.hashtags[j]["text"];
+        console.log(hashtag);
+        if(hashtag == search) {
+          var date = new Date(tweet.updated_at);
+          tweet.date = date.format("m/dd/yy hh:ss");
+        
+        localData.detail.tweets.push(tweet);
+        
+        
+        
+        }   
+      }
+    }
+    localData.detail.tweets.reverse();
+    return true;  
+  }
+};
+
+app.storeTwitter = function(data) {
+  var data = data;
   
-  bindTabs(); 
-  tabInteractionsURL();
-}
+  console.log(data);
+  localData.tweets = data;
+  // load tweets, pull all where contains @fruitfence and shortname
+};
+
+// Navigate to a tab when the history changes
+app.tabInteractionsURL = function(){
+  window.addEventListener("popstate", function(e) {
+    
+    var activeTab = $('[href=' + location.hash + ']');
+
+    if (activeTab.length) {
+      activeTab.tab('show');
+      
+    } else {
+      $('#home').tab('show');
+    }
+    $('html, body').animate({scrollTop:0}, 'fast');
+  });
+};
 
 
-function showInfo(data) {
-  var data = data.symbols;
-
- /*
- var template = $("#symbolsTemplate").html();  
-  $("#symbols-list").html(_.template(template,{symbols: data}));  
-  loadOembed('#symbols-list .media');
-  loadAutocomplete(data);
-  setupFilter(); 
-  
-  $('.expand').toggle(
-    function(){$(this).parent().find('.content').show(); $(this).html('<i class="icon-minus"></i>Hide'); },
-    function(){$(this).parent().find('.content').hide(); $(this).html('<i class="icon-plus"></i>Details'); }
-
-  );
-
-  $('.symbol .content').hide();
-*/
-
-}
-
-
-loadOembed = function(container) {
+app.loadOembed = function(container) {
   var container = container;
   // https://github.com/starfishmod/jquery-oembed-all
     $(container).each(function(){
@@ -80,8 +174,11 @@ loadOembed = function(container) {
         /*     $(this).find('.embed').embedly({key: "b17f593c1c734ce5af968cebe29474ec"}); */
       }
       else if(jpeg !== null || jpg !== null || png !== null || gif !== null) {
+      console.log(jpg);
+      console.log(url);
         var link = '<a href="' + url + '" target="_blank" class="image"><img src="' + url + '" /></a>';
-        $(this).find('.media').html(link);
+        console.log($(this));
+        $(this).html(link);
         
       }
       else {
@@ -92,7 +189,37 @@ loadOembed = function(container) {
   });
 };
 
-function loadAutocomplete(data) {
+
+app.setupFilter = function() {
+  $('.filter').change(function() {
+    var count = 0;
+    $('#symbols-autocomplete').val('');        
+    var link_category = $(this).find("option:selected").text();
+    $('#symbols-list .symbol').each(function(){  
+      var category = $(this).find('.status').html();    
+      var re = new RegExp("regex","g");
+      var match = category.match(re, link_category);
+      
+      if(category.indexOf(link_category) != -1){
+        $(this).show();
+        $('.number-symbols').html(count + " for " + link_category);
+        count++;
+
+      }
+      else if(link_category === "All"){
+        $(this).show();
+        count++;
+
+      }
+      else{
+        $(this).hide();
+      }
+    });
+  });
+};
+
+
+app.loadAutocomplete = function(data) {
   var autocomplete = [];
   for (var i in data) {
     var item = data[i];
@@ -129,68 +256,4 @@ function loadAutocomplete(data) {
       }
     });  
   });
-}
-
-var ua = navigator.userAgent,
-    clickEvent = (ua.match(/iPad/i)) ? "touchstart" : "click";
-
-// Add a hash to the URL when the user clicks on a tab.
-function bindTabs() {
-
-  // Prevent multiple click event bindings, while still keeping the event listener for tab 'shown'
-  $('a[data-toggle="tab"]').unbind(clickEvent);
-  // Not IE7 compatible but oh well. If we need that we can switch to jquery address.
-  $('a[data-toggle="tab"]').bind(clickEvent, function(e) {
-    //console.log("-----BINDING TABS-----" + $(this).attr('href'));
-    history.pushState(null, null, $(this).attr('href'));
-    e.preventDefault();
-    $(this).tab('show');
-  });
 };
-
-// Navigate to a tab when the history changes
-function tabInteractionsURL(){
-  window.addEventListener("popstate", function(e) {
-    
-    var activeTab = $('[href=' + location.hash + ']');
-
-    if (activeTab.length) {
-      activeTab.tab('show');
-      
-    } else {
-      $('#home').tab('show');
-    }
-    $('html, body').animate({scrollTop:0}, 'fast');
-  });
-};
-
-function setupFilter() {
-  $('.filter').change(function() {
-    var count = 0;
-    $('#symbols-autocomplete').val('');        
-    var link_category = $(this).find("option:selected").text();
-    $('#symbols-list .symbol').each(function(){  
-      var category = $(this).find('.status').html();    
-      var re = new RegExp("regex","g");
-      var match = category.match(re, link_category);
-      
-      if(category.indexOf(link_category) != -1){
-        $(this).show();
-        $('.number-symbols').html(count + " for " + link_category);
-        count++;
-
-      }
-      else if(link_category === "All"){
-        $(this).show();
-        count++;
-
-      }
-      else{
-        $(this).hide();
-      }
-    });
-  });
-  
-  
-  
-}
