@@ -151,7 +151,7 @@
           <script type="text/template" id="plantsTemplate">
             <ul class="list span12">
               <% _.each(items, function (item) { %> 
-                <li class="span3"><a href="?id=<%= item.shortname %>#detail" data-toggle="tab">
+                <li class="span12"><a href="?id=<%= item.shortname %>#detail" data-toggle="tab">
                   <% if (item.photo !== null) { %>
                     <div class="media span4">
                       <div class="embed image link" href="<%= item.photo %>"></div>                    

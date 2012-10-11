@@ -43,18 +43,15 @@ app.loadPlanter = function() {
       localData.template = $("#detailTemplate").html();  
     }
     var detail = localData.detail;
+
     $("#detail-page").html(_.template(localData.template,{detail: detail}));
     app.loadOembed('#detail-page .media');
-
 
     if(localData.detail.tweets !== null) {
       if(localData.tweetTemplate === undefined) {
         localData.tweetTemplate = $("#detailTweetsTemplate").html();  
       }
-  
-
       if(detail.tweets !== undefined) {
-
         $("#detail-tweets").html(_.template(localData.tweetTemplate,{tweets: detail.tweets}));
       }
     }
@@ -97,19 +94,15 @@ app.filterTwitter = function () {
 
     for(var i = 0; i < localData.tweets.length; i++) {
       var tweet = localData.tweets[i];
-      console.log(tweet);
+
       if(tweet.entities !== undefined){
         for(var j = 0; j < tweet.entities.hashtags.length; j++) {      
         var hashtag = tweet.entities.hashtags[j]["text"];
         console.log(hashtag);
         if(hashtag === search) {
           var date = new Date(tweet.updated_at);
-          tweet.date = date.format("m/dd/yy hh:ss");
-        
-        localData.detail.tweets.push(tweet);
-        
-        
-        
+          tweet.date = date.format("m/dd/yy hh:ss");      
+          localData.detail.tweets.push(tweet);
           }   
         }
       }
@@ -149,7 +142,8 @@ app.loadOembed = function(container) {
   // https://github.com/starfishmod/jquery-oembed-all
     $(container).each(function(){
       var url = $(this).find('.image').attr('href');
-      if(url !== undefined) {
+      console.log(url);
+      if(url !== undefined && url !== "" && url !== null) {
 
         var flickr = url.match(/flickr.com/g);
         var youtube = url.match(/youtube.com/g);
@@ -184,10 +178,13 @@ app.loadOembed = function(container) {
         $(this).html(link);
         
       }
-      else {
-        var link = "";
-        $(this).find('.media').css("height","auto");
-      }
+  }
+  else {
+        var link = '<a href="' + url + '" target="_blank" class="image"><img src="images/placeholder.png" /></a>';
+    $(this).html(link);
+
+
+
   }    
   });
 };

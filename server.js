@@ -36,7 +36,6 @@ t.stream(
     function(stream) {
         stream.on('data', function(tweet) {
             var res = {};
-
             engine.save(tweet,function(error,agent) {
 
             });
