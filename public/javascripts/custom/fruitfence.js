@@ -93,8 +93,7 @@ app.filterTwitter = function () {
     localData.detail.tweets = [];
     // twitter feed ajax + twitter API for fruit fence
     var search = localData.detail.shortname;
-    
-    search = "lemon1";
+
     for(var i = 0; i < localData.tweets.length; i++) {
       var tweet = localData.tweets[i];
       for(var j = 0; j < tweet.entities.hashtags.length; j++) {      
