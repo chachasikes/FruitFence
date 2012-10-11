@@ -38,12 +38,14 @@
           <span class="icon-bar"></span>
         </a>
 
-        <a class="brand" href="#home" data-toggle="tab">Fruit Fence</a>
+
 
         <ul class="nav visible-desktop">
-          <li><a href="#make" data-toggle="tab">Make a Planter</a></li>
-          <li><a href="#fences" data-toggle="tab">See Fruit Fences</a></li>
-          <li><a href="#register" data-toggle="tab">Register your Planter</a></li>
+
+          <li><a class="brand" href="/#home" data-toggle="tab">Fruit Fence</a></li>
+          <li><a href="/#make" data-toggle="tab">Make a Planter</a></li>
+          <li><a href="/#fences" data-toggle="tab">See Fruit Fences</a></li>
+          <li><a href="/#register" data-toggle="tab">Register your Planter</a></li>
         </ul>
 
         <a href="#menu" class="menu-link pull-right hidden-desktop"><i class="icon-list"></i></a>  
@@ -57,9 +59,10 @@
 
     <div id="menu" class="tab-pane">
       <ul class="nav nav-tabs nav-stacked">
-          <li><a href="#make" data-toggle="tab">Make a Planter</a></li>
-          <li><a href="#fences" data-toggle="tab">Fruit Fences</a></li>
-          <li><a href="#register" data-toggle="tab">Register your Planter</a></li>
+          <li><a class="brand" href="/#home" data-toggle="tab">Fruit Fence</a></li>
+          <li><a href="/#make" data-toggle="tab">Make a Planter</a></li>
+          <li><a href="/#fences" data-toggle="tab">Fruit Fences</a></li>
+          <li><a href="/#register" data-toggle="tab">Register your Planter</a></li>
       </ul>
     </div>
 
@@ -151,7 +154,7 @@
           <script type="text/template" id="plantsTemplate">
             <ul class="list span12">
               <% _.each(items, function (item) { %> 
-                <li class="span12"><a href="?id=<%= item.shortname %>#detail" data-toggle="tab">
+                <li class="span12"><a href="/?id=<%= item.shortname %>#detail" data-toggle="tab">
                   <% if (item.photo !== null) { %>
                     <div class="media span4">
                       <div class="embed image link" href="<%= item.photo %>"></div>                    
@@ -170,16 +173,24 @@
       <div id="detail-page" class="span12"> 
         
           <script type="text/template" id="detailTemplate">
-          <h3>Planter #<%= detail.shortname %></h3>
-          <p><span class="label">What's Planted</span><%= detail.plants %></p>
-          <p><span class="label">Story</span><%= detail.story %></p>
+          <h2>Planter #<%= detail.shortname %></h2>
+
+          <h4>What's Planted</h4>
+          <p><%= detail.plants %></p>
+
+          <h4>Story</h4>
+          <p><%= detail.story %></p>
             <% if (detail.photo !== null) { %>
                     <div class="media">
                       <a class="embed image link" href="<%= detail.photo %>">Check it out</a>                    
                     </div>
                   <% } %>
-          <p><span class="label">Contact</span><%= detail.contact %></p>
-          <p><span class="label">Address</span><%= detail.address %></p>
+
+          <h4>Contact</h4>
+          <p><%= detail.contact %></p>
+
+          <h4>Address</h4>
+          <p><%= detail.address %></p>
           </script>          
       </div>
       <div id="detail-tweets">     

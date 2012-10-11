@@ -65,11 +65,9 @@ app.bindTabs = function() {
   $('a[data-toggle="tab"]').unbind(clickEvent);
   // Not IE7 compatible but oh well. If we need that we can switch to jquery address.
   $('a[data-toggle="tab"]').bind(clickEvent, function(e) {
-    //console.log("-----BINDING TABS-----" + $(this).attr('href'));
     history.pushState(null, null, $(this).attr('href'));
     e.preventDefault();
     $(this).tab('show');
-
     if(location.search !== null){
       var search = location.search;
       search = search.split('=');
@@ -127,11 +125,12 @@ app.tabInteractionsURL = function(){
     var activeTab = $('[href=' + location.hash + ']');
 
     if (activeTab.length) {
-      activeTab.tab('show');
-      
-    } else {
+      activeTab.tab('show');  
+    }
+    else {
       $('#home').tab('show');
     }
+
     $('html, body').animate({scrollTop:0}, 'fast');
   });
 };
