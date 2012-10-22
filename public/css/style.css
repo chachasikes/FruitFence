@@ -98,3 +98,11 @@ text-decoration: none;
   padding-right: 20px;
   font-size: 200%
 }
+.photos {
+  list-style: none;
+}
+
+.photos li {
+  display: inline-block;
+  padding-right: 10px;
+}
