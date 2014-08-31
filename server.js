@@ -75,21 +75,6 @@ app.post('/agent/save', function(req, res) {
   });
 });
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// openshift internal routes
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-app.get('/health', function(req, res){
-    res.send('1');
-});
-
-// Handler for GET /asciimo
-app.get('/asciimo', function(req, res){
-    var link="https://a248.e.akamai.net/assets.github.com/img/d84f00f173afcf3bc81b4fad855e39838b23d8ff/687474703a2f2f696d6775722e636f6d2f6b6d626a422e706e67";
-    res.send("<html><body><img src='" + link + "'></body></html>");
-});
-
-
 app.post("/agent/query", function(req,res) {
   var blob = req.body;
   console.log("server:: agent query for many:");
@@ -113,7 +98,7 @@ var ipaddr  = process.env.IPADDR || "127.0.0.1";
 var port    = 4000;
 
 if (typeof ipaddr === "undefined") {
-   console.warn('No OPENSHIFT_INTERNAL_IP environment variable');
+   console.warn('No ipaddr environment variable');
 }
 
 function terminator(sig) {
@@ -134,6 +119,6 @@ process.on('exit', function() { terminator(); });
 });
 
 app.listen(port, ipaddr, function() {
-   console.log('%s: Node server started on %s:%d ...', Date(Date.now() ),
+   console.log('%s: Fruitfence server started on %s:%d ...', Date(Date.now() ),
                ipaddr, port);
 });
