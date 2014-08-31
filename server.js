@@ -1,13 +1,12 @@
 #!/bin/env node
 
 var _ = require('underscore')._;
+var fs      = require('fs');
+var express = require('express');
 
 var EngineProvider = require('./engine').EngineProvider;
 var engine         = new EngineProvider();
 
-
-var fs      = require('fs');
-var express = require('express');
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // lemonopoly configuration
@@ -15,8 +14,6 @@ var express = require('express');
 
 var zcache = { 'index.html': '' };
 zcache['index.html'] = fs.readFileSync('./public/index.html');
-
-
 
 var twitter = require('ntwitter');
 var credentials = require('./credentials.js');
@@ -30,7 +27,7 @@ var t = new twitter({
 
 t.stream(
     'statuses/filter',
-    { 
+    {
       track: ['fruitfence']
     },
     function(stream) {
@@ -42,12 +39,6 @@ t.stream(
         });
     }
 );
-
-
-
-
-
-
 
 var app = module.exports = express.createServer();
 
@@ -118,8 +109,8 @@ app.post("/agent/query", function(req,res) {
 // openshift boot up
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-var ipaddr  = process.env.OPENSHIFT_INTERNAL_IP;
-var port    = process.env.OPENSHIFT_INTERNAL_PORT || 3000;
+var ipaddr  = process.env.IPADDR || "127.0.0.1";
+var port    = 4000;
 
 if (typeof ipaddr === "undefined") {
    console.warn('No OPENSHIFT_INTERNAL_IP environment variable');
@@ -146,4 +137,3 @@ app.listen(port, ipaddr, function() {
    console.log('%s: Node server started on %s:%d ...', Date(Date.now() ),
                ipaddr, port);
 });
-
