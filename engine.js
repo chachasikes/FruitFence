@@ -6,10 +6,9 @@ function enginecallback() {
 }
 
 EngineProvider = function() {
-  this.db = new MongoDB('127.0.0.1',27017); //localhost
-  //this.db = new MongoDB('127.2.150.1',27017); //production
-  console.log("server::engine database is " + this.db );
-
+  // this.db = new MongoDB('127.11.203.129',27017);
+  var ipaddr  = process.env.IPADDR || "127.0.0.1";
+  this.db = new MongoDB(ipaddr,27017);
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +47,7 @@ EngineProvider.prototype.destroy = function(blob,handler) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // data api - generic save handler - also handles unique facebook id storage
-// 
+//
 // Save a change to an agent or a new agent
 // TODO parameter sanitization???
 // https://groups.google.com/forum/#!topic/nodejs/URqPpvhgVs8
@@ -150,7 +149,7 @@ EngineProvider.prototype.refresh = function() {
   this.db.getCollection(function(error, c) {
     if(error) { return; }
     collection.find().stream().on('data', function(agent) {
-  
+
       var _id = agent["_id"];
 
       var decay = agent["decay"];
@@ -171,10 +170,9 @@ EngineProvider.prototype.refresh = function() {
         res.send("agent " + _id + " collects");
        // only at a certain rate...
       }
-        
+
     });
   });
 };
 
 exports.EngineProvider = EngineProvider;
-

@@ -8,9 +8,9 @@ MongoDB = function(host, port) {
   this.db= new Db('fences', new Server(host, port, {auto_reconnect: true}, {}));
   this.db.open(function(err,db){
     console.log("mongodb:: got db " + err + " " + db );
-    db.authenticate("admin","52uala_JdXQr", function(err2,db2) {
-      console.log("mongodb::auth got db " + err2 + " " + db2 );
-    });
+    // db.authenticate("admin","52uala_JdXQr", function(err2,db2) {
+    //   console.log("mongodb::auth got db " + err2 + " " + db2 );
+    // });
   });
 };
 
@@ -133,7 +133,7 @@ MongoDB.prototype.update = function(agent, callback) {
   this.getCollection(function(error, c) {
     if( error ) callback(error)
     else {
-      c.save(agent, function(err,result) { callback(null,[agent]); }); 
+      c.save(agent, function(err,result) { callback(null,[agent]); });
       // c.update(agent, function() { callback(null, [agent]); }); @TODO examine
     }
   });
